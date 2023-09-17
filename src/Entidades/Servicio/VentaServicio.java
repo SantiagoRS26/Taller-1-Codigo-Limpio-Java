@@ -1,10 +1,10 @@
-package Servicio;
+package Entidades.Servicio;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import Persona.Persona;
+import Entidades.Persona.Persona;
 
 public class VentaServicio {
     private String idVentaServicio;

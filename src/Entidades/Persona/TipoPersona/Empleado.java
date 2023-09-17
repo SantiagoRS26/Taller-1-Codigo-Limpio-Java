@@ -1,5 +1,5 @@
-package Persona.TipoPersona;
-import Persona.Persona;
+package Entidades.Persona.TipoPersona;
+import Entidades.Persona.Persona;
 
 public class Empleado extends Persona {
     private String idCarnet;

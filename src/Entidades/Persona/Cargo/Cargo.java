@@ -1,4 +1,4 @@
-package Persona.Cargo;
+package Entidades.Persona.Cargo;
 
 public class Cargo {
     private String idCargo;

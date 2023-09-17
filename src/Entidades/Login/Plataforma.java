@@ -1,10 +1,11 @@
-package Login;
+package Entidades.Login;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import DBContext.DBContext;
+
+import AcessoDatos.DBContext.DBContext;
 
 public class Plataforma {
     private String nombre;

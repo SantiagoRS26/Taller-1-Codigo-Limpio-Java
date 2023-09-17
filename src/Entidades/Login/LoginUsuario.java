@@ -1,4 +1,4 @@
-package Login;
+package Entidades.Login;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
-import DBContext.DBContext;
+import AcessoDatos.DBContext.DBContext;
 
 public class LoginUsuario {
     private String loginUsuarioId;
@@ -30,7 +30,7 @@ public class LoginUsuario {
                 statement.setString(2, password);
     
                 try (ResultSet resultSet = statement.executeQuery()) {
-                    while (resultSet.next()) {
+                    if (resultSet.next()) {
                         String userId = resultSet.getString("userId");
                         String email = resultSet.getString("email");
                         String username = resultSet.getString("username");
@@ -48,6 +48,8 @@ public class LoginUsuario {
                         System.out.println("Genero: " + genero);
                         System.out.println("Edad: " + edad);
                         System.out.println("Direccion: " + direccion);
+                    } else {
+                        System.out.println("Credenciales incorrectas. Por favor, verifique su usuario/correo y contraseña.");
                     }
                 }
             }
@@ -56,6 +58,7 @@ public class LoginUsuario {
             throw new RuntimeException("Error al realizar el inicio de sesión: " + e.getMessage());
         }
     }
+    
     
 
     @Override

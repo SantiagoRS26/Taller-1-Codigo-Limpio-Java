@@ -1,4 +1,4 @@
-package Persona;
+package Entidades.Persona;
 
 public class Persona {
     private String nombre;
@@ -7,14 +7,38 @@ public class Persona {
     private String cedula;
     private String direccion;
 
-    public Persona (String nombre, String genero, int edad, String cedula, String direccion) {
+    public Persona(String nombre, String genero, int edad, String cedula, String direccion) {
         this.nombre = nombre;
         this.genero = genero;
         this.edad = edad;
         this.cedula = cedula;
         this.direccion = direccion;
     }
-    
+
+    public String getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
     public void Saludar() {
         System.out.println("Hola, mi nombre es " + this.nombre);
     }
@@ -26,6 +50,7 @@ public class Persona {
     public void Dormir() {
         System.out.println("Zzz");
     }
+    
 
     @Override
     public String toString() {
@@ -37,5 +62,4 @@ public class Persona {
                 ", direccion='" + direccion + '\'' +
                 '}';
     }
-
 }

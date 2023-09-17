@@ -1,4 +1,4 @@
-package Servicio;
+package Entidades.Servicio;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -21,6 +21,10 @@ public class Facturacion {
             total += venta.calcularTotal();
         }
         return total;
+    }
+
+    public void AgregarVenta(VentaServicio venta) {
+        ventas.add(venta);
     }
 
     @Override

@@ -1,6 +1,6 @@
-package Login;
+package Entidades.Login;
 
-import Persona.Persona;
+import Entidades.Persona.Persona;
 
 public class Usuario {
     private String userId;
@@ -15,6 +15,41 @@ public class Usuario {
         this.username = username;
         this.email = email;
         this.persona = persona;
+    }
+
+    public Usuario() {
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public void setPersonaCedula(String personaCedula) {
+        this.persona.setCedula(personaCedula);
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPersonaCedula() {
+        return persona.getCedula();
     }
 
     public String getUsername() {

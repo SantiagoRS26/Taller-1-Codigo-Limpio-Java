@@ -1,7 +1,7 @@
-package Persona.TipoPersona;
-import Persona.Persona;
+package Entidades.Persona.TipoPersona;
+import Entidades.Persona.Persona;
 
-class Estudiante extends Persona {
+public class Estudiante extends Persona {
     private String idCarnet;
     private String carrera;
     private float promedio;

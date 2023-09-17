@@ -1,4 +1,4 @@
-package Servicio;
+package Entidades.Servicio;
 
 public class Servicio {
     private String nombre;

@@ -1,8 +1,8 @@
-package Persona.Cargo;
+package Entidades.Persona.Cargo;
 
 import java.time.LocalDate;
 
-import Persona.Persona;
+import Entidades.Persona.Persona;
 
 public class PersonaCargo {
     private String idPersonaCargo;

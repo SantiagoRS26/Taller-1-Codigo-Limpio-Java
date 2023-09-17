@@ -1,4 +1,4 @@
-package DBContext;
+package AcessoDatos.DBContext;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
