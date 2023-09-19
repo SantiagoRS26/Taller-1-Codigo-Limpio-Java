@@ -32,10 +32,6 @@ public class Usuario {
         this.userId = userId;
     }
 
-    public void setPersonaCedula(String personaCedula) {
-        this.persona.setCedula(personaCedula);
-    }
-
     public void setUsername(String username) {
         this.username = username;
     }
@@ -48,8 +44,8 @@ public class Usuario {
         return email;
     }
 
-    public String getPersonaCedula() {
-        return persona.getCedula();
+    public Persona getPersona() {
+        return persona;
     }
 
     public String getUsername() {

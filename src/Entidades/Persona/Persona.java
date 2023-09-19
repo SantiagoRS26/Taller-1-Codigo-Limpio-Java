@@ -7,11 +7,11 @@ public class Persona {
     private String cedula;
     private String direccion;
 
-    public Persona(String nombre, String genero, int edad, String cedula, String direccion) {
+    public Persona(String cedula, String nombre, String genero, int edad, String direccion) {
+        this.cedula = cedula;
         this.nombre = nombre;
         this.genero = genero;
         this.edad = edad;
-        this.cedula = cedula;
         this.direccion = direccion;
     }
 

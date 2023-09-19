@@ -9,7 +9,7 @@ public class Docente extends Persona {
 
     public Docente(String nombre, String genero, int edad, String cedula, String direccion, String idCarnet,
             String telefono, String materia, String facultad) {
-        super(nombre, genero, edad, cedula, direccion);
+        super(cedula, nombre, genero, edad, direccion);
         this.idCarnet = idCarnet;
         this.materia = materia;
         this.facultad = facultad;

@@ -2,8 +2,9 @@ package Presentacion;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
-import AcessoDatos.Interfaces.IGenerica;
+import AcessoDatos.Interfaces.RepositorioGenerico;
 import AcessoDatos.Repositorios.*;
 import Entidades.Login.*;
 import Entidades.Persona.*;
@@ -12,22 +13,17 @@ import Entidades.Persona.TipoPersona.*;
 import Entidades.Servicio.*;
 
 public class Main {
-    private static final IGenerica<Persona> repositorioPersona = new RepositorioPersona();
-    public static void main(String[] args) throws Exception {
+    private static final RepositorioGenerico<Persona> _repositorioPersona = new RepositorioPersona();
+    private static final RepositorioGenerico<Usuario> _repositorioUsuario = new RepositorioUsuario();
+    private static final RepositorioGenerico<Plataforma> _repositorioPlataforma = new RepositorioPlataforma();
 
-        // Crear Persona
-        Persona persona = new Persona("Ana López", "Femenino", 25, "1234567890", "Calle 456, Ciudad");
-        if(repositorioPersona.Crear(persona)) {
-            System.out.println("Persona creada exitosamente");
-        } else {
-            System.out.println("No se pudo crear la persona");
-        }
+    public static void main(String[] args) throws Exception {
     }
 
     private static void CrearInstancias() {
         // Crear instancias
 
-        Persona persona = new Persona("Ana López", "Femenino", 25, "1234567890", "Calle 456, Ciudad");
+        Persona persona = new Persona("1234567890", "Ana López", "Femenino", 25, "Calle 456, Ciudad");
 
         Cargo cargo1 = new Cargo("C001", "Gerente de Recursos Humanos", "Encargado de la gestión de personal");
         Cargo cargo2 = new Cargo("C002", "Analista de Reclutamiento", "Encargado de procesos de selección");

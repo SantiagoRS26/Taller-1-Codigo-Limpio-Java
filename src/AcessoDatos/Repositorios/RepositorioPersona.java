@@ -1,13 +1,16 @@
 package AcessoDatos.Repositorios;
 
-import java.sql.CallableStatement;
 import java.sql.Connection;
-
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import AcessoDatos.DBContext.DBContext;
-import AcessoDatos.Interfaces.IGenerica;
+import AcessoDatos.Interfaces.RepositorioGenerico;
 import Entidades.Persona.Persona;
 
-public class RepositorioPersona implements IGenerica<Persona> {
+public class RepositorioPersona implements RepositorioGenerico<Persona> {
 
     private final Connection conexion;
 
@@ -16,41 +19,119 @@ public class RepositorioPersona implements IGenerica<Persona> {
     }
 
     public boolean Crear(Persona entidad) {
-        boolean exito = false;
+        try {
+            conexion.setAutoCommit(false);
+            try (PreparedStatement stmt = conexion.prepareStatement(
+                    "INSERT INTO Persona (cedula, nombre, genero, edad, direccion) VALUES (?, ?, ?, ?, ?)")) {
+                stmt.setString(1, entidad.getCedula());
+                stmt.setString(2, entidad.getNombre());
+                stmt.setString(3, entidad.getGenero());
+                stmt.setInt(4, entidad.getEdad());
+                stmt.setString(5, entidad.getDireccion());
 
-        try (CallableStatement stmt = conexion.prepareCall("{ ? = call sp_InsertarPersona(?, ?, ?, ?, ?) }")) {
+                int filasAfectadas = stmt.executeUpdate();
 
-            stmt.registerOutParameter(1, java.sql.Types.BOOLEAN);
-            stmt.setString(2, entidad.getCedula());
-            stmt.setString(3, entidad.getNombre());
-            stmt.setString(4, entidad.getGenero());
-            stmt.setInt(5, entidad.getEdad());
-            stmt.setString(6, entidad.getDireccion());
-            stmt.execute();
+                conexion.commit();
 
-            exito = stmt.getBoolean(1);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("Error al crear la persona");
+                return filasAfectadas > 0;
+            } catch (SQLException e) {
+                conexion.rollback();
+                e.printStackTrace();
+                throw new RuntimeException("Error al crear la persona");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al establecer la transacción");
         }
-
-        return exito;
     }
 
     public boolean Editar(Persona entidad) {
-        throw new UnsupportedOperationException("Unimplemented method 'Editar'");
+        try {
+            conexion.setAutoCommit(false);
+            try (PreparedStatement stmt = conexion.prepareStatement(
+                    "UPDATE Persona SET nombre=?, genero=?, edad=?, direccion=? WHERE cedula=?")) {
+                stmt.setString(1, entidad.getNombre());
+                stmt.setString(2, entidad.getGenero());
+                stmt.setInt(3, entidad.getEdad());
+                stmt.setString(4, entidad.getDireccion());
+                stmt.setString(5, entidad.getCedula());
+
+                int filasAfectadas = stmt.executeUpdate();
+
+                conexion.commit();
+
+                return filasAfectadas > 0;
+            } catch (SQLException e) {
+                conexion.rollback();
+                e.printStackTrace();
+                throw new RuntimeException("Error al editar la persona");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al establecer la transacción");
+        }
     }
 
-    public boolean Eliminar(String id) {
-        throw new UnsupportedOperationException("Unimplemented method 'Eliminar'");
+    public boolean Eliminar(String cedula) {
+        try {
+            conexion.setAutoCommit(false);
+            try (PreparedStatement stmt = conexion.prepareStatement("DELETE FROM Persona WHERE cedula=?")) {
+                stmt.setString(1, cedula);
+
+                int filasAfectadas = stmt.executeUpdate();
+
+                conexion.commit();
+
+                return filasAfectadas > 0;
+            } catch (SQLException e) {
+                conexion.rollback();
+                e.printStackTrace();
+                throw new RuntimeException("Error al eliminar la persona");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al establecer la transacción");
+        }
     }
 
-    public Persona Buscar(String id) {
-        throw new UnsupportedOperationException("Unimplemented method 'Buscar'");
+    public Persona Buscar(String cedula) {
+        try (PreparedStatement stmt = conexion.prepareStatement("SELECT * FROM Persona WHERE cedula=?")) {
+            stmt.setString(1, cedula);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                Persona persona = new Persona(
+                        rs.getString("cedula"),
+                        rs.getString("nombre"),
+                        rs.getString("genero"),
+                        rs.getInt("edad"),
+                        rs.getString("direccion"));
+                return persona;
+            } else {
+                return null; // No se encontró ninguna persona con la cédula proporcionada.
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error al buscar la persona por cédula");
+        }
     }
 
-    public Persona[] BuscarTodo() {
-        throw new UnsupportedOperationException("Unimplemented method 'BuscarTodo'");
-    }
+    public List<Persona> BuscarTodo() {
+        try (PreparedStatement stmt = conexion.prepareStatement("SELECT * FROM Persona")) {
+            ResultSet rs = stmt.executeQuery();
+            List<Persona> personas = new ArrayList<>();
 
+            while (rs.next()) {
+                Persona persona = new Persona(
+                        rs.getString("cedula"),
+                        rs.getString("nombre"),
+                        rs.getString("genero"),
+                        rs.getInt("edad"),
+                        rs.getString("direccion"));
+                personas.add(persona);
+            }
+
+            return personas;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error al buscar todas las personas");
+        }
+    }
 }

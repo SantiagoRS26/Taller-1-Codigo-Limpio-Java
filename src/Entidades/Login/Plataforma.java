@@ -23,6 +23,18 @@ public class Plataforma {
     public Plataforma() {
     }
 
+    public String getPlataformaId(){
+        return plataformaId;
+    }
+
+    public String getTipo(){
+        return tipo;
+    }
+
+    public int getUsuariosConectados(){
+        return usuariosConectados;
+    }
+
     public String getNombre() {
         return nombre;
     }

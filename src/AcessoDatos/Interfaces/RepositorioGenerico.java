@@ -1,9 +1,15 @@
 package AcessoDatos.Interfaces;
 
-public interface IGenerica<TEntidad> {
+import java.util.List;
+
+public interface RepositorioGenerico<TEntidad> {
     boolean Crear(TEntidad entidad);
+
     boolean Editar(TEntidad entidad);
+
     boolean Eliminar(String id);
+
     TEntidad Buscar(String id);
-    TEntidad[] BuscarTodo();
+
+    List<TEntidad> BuscarTodo();
 }
