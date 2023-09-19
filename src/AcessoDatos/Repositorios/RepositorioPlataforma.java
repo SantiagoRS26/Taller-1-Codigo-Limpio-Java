@@ -103,7 +103,7 @@ public class RepositorioPlataforma implements RepositorioGenerico<Plataforma> {
                         rs.getString("plataformaId"));
                 return plataforma;
             } else {
-                return null; // No se encontró ninguna plataforma con el ID proporcionado.
+                return null;
             }
         } catch (SQLException e) {
             e.printStackTrace();

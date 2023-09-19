@@ -18,6 +18,113 @@ public class Main {
     private static final RepositorioGenerico<Plataforma> _repositorioPlataforma = new RepositorioPlataforma();
 
     public static void main(String[] args) throws Exception {
+
+        /* Descomentar la opcion a probar, la base de datos esta en la nube, entonces se puede ejecutar desde cualquier maquina */
+        /* Puede tomar un tiempo ya que la base de datos fue creada en una pagina gratuita */
+
+
+        probarBuscarTodoUsuarios();
+        //probarCrearUsuario();
+        //probarEditarUsuario();
+        //probarEliminarUsuario();
+        //probarBuscarUsuario();
+        //CrearInstancias();
+    }
+
+    private static void probarCrearUsuario() {
+        // Crea un objeto Usuario
+        Usuario usuario = new Usuario("usuario1", "password", "username", "email", new Persona("cedula", "nombre", "genero", 30, "direccion"));
+
+        // Llama al método Crear del RepositorioUsuario
+        boolean resultado = _repositorioUsuario.Crear(usuario);
+
+        // Verifica si se creó correctamente
+        if (resultado) {
+            System.out.println("Usuario creado con éxito.");
+        } else {
+            System.out.println("Error al crear el usuario.");
+        }
+    }
+
+    private static void probarEditarUsuario() {
+        // Supongamos que tienes un usuario con ID "usuario1" en la base de datos.
+        Usuario usuario = _repositorioUsuario.Buscar("usuario1");
+
+        if (usuario != null) {
+            // Modifica algún campo del usuario
+            usuario.setUsername("nuevoUsername");
+
+            // Llama al método Editar del RepositorioUsuario
+            boolean resultado = _repositorioUsuario.Editar(usuario);
+
+            // Verifica si se editó correctamente
+            if (resultado) {
+                System.out.println("Usuario editado con éxito.");
+            } else {
+                System.out.println("Error al editar el usuario.");
+            }
+        } else {
+            System.out.println("Usuario no encontrado para editar.");
+        }
+    }
+
+    private static void probarEliminarUsuario() {
+        // Supongamos que tienes un usuario con ID "usuario1" en la base de datos.
+        Usuario usuario = _repositorioUsuario.Buscar("usuario1");
+
+        if (usuario != null) {
+            // Llama al método Eliminar del RepositorioUsuario
+            boolean resultado = _repositorioUsuario.Eliminar("usuario1");
+
+            // Verifica si se eliminó correctamente
+            if (resultado) {
+                System.out.println("Usuario eliminado con éxito.");
+            } else {
+                System.out.println("Error al eliminar el usuario.");
+            }
+        } else {
+            System.out.println("Usuario no encontrado para eliminar.");
+        }
+    }
+
+    private static void probarBuscarUsuario() {
+        // Supongamos que tienes un usuario con ID "usuario1" en la base de datos.
+        Usuario usuario = _repositorioUsuario.Buscar("usuario1");
+
+        if (usuario != null) {
+            System.out.println("Usuario encontrado:");
+            System.out.println("ID: " + usuario.getUserId());
+            System.out.println("Nombre: " + usuario.getUsername());
+            System.out.println("Email: " + usuario.getEmail());
+            // Agrega más campos según tu clase Usuario
+        } else {
+            System.out.println("Usuario no encontrado.");
+        }
+    }
+
+    private static void probarBuscarTodoUsuarios() {
+        List<Usuario> usuarios = _repositorioUsuario.BuscarTodo();
+    
+        if (!usuarios.isEmpty()) {
+            System.out.println("Usuarios encontrados:");
+            for (Usuario usuario : usuarios) {
+                System.out.println("ID: " + usuario.getUserId());
+                System.out.println("Nombre de Usuario: " + usuario.getUsername());
+                System.out.println("Email: " + usuario.getEmail());
+                
+                // Imprime la información de la persona asociada al usuario
+                System.out.println("Información de la Persona Asociada:");
+                System.out.println("Cédula: " + usuario.getPersona().getCedula());
+                System.out.println("Nombre: " + usuario.getPersona().getNombre());
+                System.out.println("Género: " + usuario.getPersona().getGenero());
+                System.out.println("Edad: " + usuario.getPersona().getEdad());
+                System.out.println("Dirección: " + usuario.getPersona().getDireccion());
+                
+                System.out.println("-----------------------------------");
+            }
+        } else {
+            System.out.println("No se encontraron usuarios.");
+        }
     }
 
     private static void CrearInstancias() {
@@ -83,4 +190,6 @@ public class Main {
         System.out.println("\nIntento de inicio de sesión:");
         loginUsuario.RealizarLogin("juanperez35", "claveSegura1");
     }
+
+
 }
